@@ -9,4 +9,3 @@ __pycache__
 !requirements.txt
 *.log
 !proxies.txt
-!data.txt

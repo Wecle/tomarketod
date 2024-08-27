@@ -5,6 +5,7 @@ import time
 import random
 import argparse
 import requests
+import urllib.parse
 from base64 import b64decode, urlsafe_b64decode
 from datetime import datetime
 from urllib.parse import parse_qs
@@ -275,12 +276,12 @@ class Tomartod:
     def main(self):
         banner = f"""
     {hijau}Auto Claim {biru}Tomarket_ai
-    
+
     {hijau}By: {putih}t.me/AkasakaID
     {hijau}GIthub: {putih}@AkasakaID
-    
-    {hijau}Message: {putih}dont't forget to 'git pull' maybe the script is updated 
-    
+
+    {hijau}Message: {putih}dont't forget to 'git pull' maybe the script is updated
+
         """
         arg = argparse.ArgumentParser()
         arg.add_argument("--data", default="data.txt")
@@ -306,7 +307,9 @@ class Tomartod:
                 if use_proxy:
                     proxy = proxies[no % len(proxies)]
                 self.set_proxy(proxy if use_proxy else None)
-                parser = self.marinkitagawa(data)
+                decoded_source_target = urllib.parse.unquote(data)
+                split_data = decoded_source_target.split('#tgWebAppData=')[1].split('&tgWebAppVersion=')[0]
+                parser = self.marinkitagawa(split_data)
                 user = json.loads(parser["user"])
                 id = user["id"]
                 self.log(
